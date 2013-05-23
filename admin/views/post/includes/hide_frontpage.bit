@@ -1,0 +1,9 @@
+<?php
+	$value = isset($post_edit['hide_frontpage']) ? $post_edit['hide_frontpage'] : false;
+
+	echo Html::div_open( array('class'=>'form_block', 'hidden'=>!$settings['advanced_post_options']) );
+		echo Html::checkbox( array('id'=>'js_hide_frontpage', 'name'=>'hide_frontpage', 'class'=>'float'), $value );
+		echo Html::label( array('class'=>'for_checkbox', 'content'=>$_LANG['HIDE_FRONTPAGE'], 'for'=>'js_hide_frontpage') );
+		echo Html::div( array('class'=>'input_tip', 'content'=>$_LANG['HIDE_POST_ON_FRONT_PAGE']) );
+	echo Html::div_close();
+?>

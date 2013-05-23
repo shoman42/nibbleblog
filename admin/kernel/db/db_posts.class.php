@@ -86,6 +86,7 @@ class DB_POSTS {
 			$new_obj->addChild('content',			$args['content']);
 			$new_obj->addChild('description',		$args['description']);
 			$new_obj->addChild('allow_comments',	$args['allow_comments']);
+			$new_obj->addChild('hide_frontpage',	$args['hide_frontpage']);
 			$new_obj->addChild('slug',				$args['slug']);
 
 			$new_obj->addChild('pub_date',			$time_unix);
@@ -149,6 +150,7 @@ class DB_POSTS {
 			$new_obj->setChild('content', 			$args['content']);
 			$new_obj->setChild('description', 		$args['description']);
 			$new_obj->setChild('allow_comments', 	$args['allow_comments']);
+			$new_obj->setChild('hide_frontpage',	$args['hide_frontpage']);
 			$new_obj->setChild('slug',				$args['slug']);
 			$new_obj->setChild('pub_date',			$args['unixstamp']);
 			$new_obj->setChild('mod_date', 			Date::unixstamp());
@@ -230,7 +232,7 @@ class DB_POSTS {
 
 			if($this->files_count > 0)
 			{
-				return( $this->get_list_by($args['page'], $args['amount']) );
+				return( $this->get_list_by($args['page'], $args['amount'], TRUE) );
 			}
 
 			return(array());
@@ -404,6 +406,7 @@ class DB_POSTS {
 			$tmp_array['mod_date_unix']		= (string) $obj_xml->getChild('mod_date');
 
 			$tmp_array['allow_comments']	= (bool) ((int)$obj_xml->getChild('allow_comments'))==1;
+			$tmp_array['hide_frontpage']	= (bool) ((int)$obj_xml->getChild('hide_frontpage'))==1;
 
 			// CONTENT
 			$tmp_array['content'][0] = $content;
@@ -429,7 +432,7 @@ class DB_POSTS {
 			return( $tmp_array );
 		}
 
-		private function get_list_by($page_number, $post_per_page)
+		private function get_list_by($page_number, $post_per_page, $hide_frontpage=FALSE)
 		{
 			$init = (int) $post_per_page * $page_number;
 			$end  = (int) min( ($init + $post_per_page - 1), $this->files_count - 1 );
@@ -442,7 +445,13 @@ class DB_POSTS {
 			{
 				for($init; $init <= $end; $init++)
 				{
-					array_push( $tmp_array, $this->get_items( $this->files[$init] ) );
+					$next = $this->get_items( $this->files[$init] );
+					if ($hide_frontpage && $next['hide_frontpage']) {
+					 if ($end < ($this->files_count-1)) {
+						$end++;} 
+					} else {
+					array_push( $tmp_array, $next);
+					}
 				}
 			}
 

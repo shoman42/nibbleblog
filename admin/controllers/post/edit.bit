@@ -12,6 +12,7 @@
 						'content'=>'',
 						'description'=>'',
 						'allow_comments'=>0,
+						'hide_frontpage'=>0,
 						'slug'=>''
 		);
 
@@ -57,6 +58,12 @@
 		if( isset($_POST['allow_comments']) && $_POST['allow_comments']=='1' )
 		{
 			$safe['allow_comments'] = 1;
+		}
+				
+		// Hide from front page
+		if( isset($_POST['hide_frontpage']) && $_POST['hide_frontpage']=='1' )
+		{
+			$safe['hide_frontpage'] = 1;
 		}
 
 		// Publish date

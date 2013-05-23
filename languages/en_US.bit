@@ -243,5 +243,7 @@ $_LANG['GOOGLE_WEBMASTER_TOOLS'] = 'Google Webmaster tools - Verification code';
 $_LANG['BING_WEBMASTER_TOOLS'] = 'Bing Webmaster tools - Verification code';
 $_LANG['SEO_OPTIONS'] = 'SEO Options';
 $_LANG['SHARE'] = 'Share';
+$_LANG['HIDE_FRONTPAGE'] = 'Hide on front page';
+$_LANG['HIDE_POST_ON_FRONT_PAGE'] = 'Hide this post from the main blog feed';
 
 ?>

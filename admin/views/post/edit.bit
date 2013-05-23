@@ -26,6 +26,9 @@
 		// ALLOW COMMENTS
 		include('includes/allow_comments.bit');
 
+		// HIDE ON MAIN BLOG FEED
+		include('includes/hide_frontpage.bit');
+
 		// BUTTONS
 		include('includes/buttons.bit');
 
